@@ -67,24 +67,23 @@ Digitando il numero 2 da tastierino numerico, partirà il thread Consegna. Ques
 Completata l’ordinazione, verrà nuovamente visualizzando il menù principale.
 
 ## Cucina e Cuochi
-Attenzione: i termini “Vassoio” e “Tavolo” sono equivalenti. Il nome Tavolo è il nome della classe che gestisce le ordinazioni. La classe Tavolo contiene una lista di Prodotti; I camerieri prendono ordinazioni ai Tavoli (viene creato un oggetto Tavolo, che all’interno contiene la lista dei prodotti da preparare). I cuochi operano su questa lista, che per praticità chiameremo “vassoio”.
+* Attenzione: i termini “Vassoio” e “Tavolo” sono equivalenti. Il nome Tavolo è il nome della classe che gestisce le ordinazioni. La classe Tavolo contiene una lista di Prodotti; I camerieri prendono ordinazioni ai Tavoli (viene creato un oggetto Tavolo, che all’interno contiene la lista dei prodotti da preparare). I cuochi operano su questa lista, che per praticità chiameremo “vassoio”.
+
 Tutto ciò che concerne il lavoro nella cucina del fast-food risiede nella classe Cuoco, che viene lanciata sotto forma di thread dal client ClientCuoco.
 L’interazione client-server inizia con un messaggio di benvenuto da parte del server. Il cuoco può scegliere se proseguire o uscire dal programma. In caso di proseguimento, viene memorizzato l’ID del vassoio attualmente in preparazione in cucina.
 Le nostre scelte implementative nella strutturazione della cucina sono state le seguenti:
-* I cuochi possono lavorare solo su un vassoio alla volta (il vassoio “attuale”)
-* Ogni vassoio è contrassegnato da un id. L’id aumenta ogni volta che un vassoio
-viene completato dai cuochi. Durante la preparazione dei prodotti, il client controlla ripetutamente se l'id del vassoio è rimasto lo stesso. In caso negativo, al completamento della preparazione del prodotto questo sarà messo in magazzino e al cuoco verrà presentato il nuovo vassoio.
-* Nel caso in cui il vassoio attuale si svuoti mentre un cuoco prepara un prodotto, e non siano presenti altri vassoi da preparare, il prodotto del cuoco verrà messo in magazzino e il cuoco verrà messo in attesa di un altro cuoco.
-* I cuochi possono preparare solo i prodotti presenti nel vassoio.
+* I cuochi possono lavorare solo su un vassoio alla volta (il vassoio “attuale”);
+* Ogni vassoio è contrassegnato da un id. L’id aumenta ogni volta che un vassoio viene completato dai cuochi. Durante la preparazione dei prodotti, il client controlla ripetutamente se l'id del vassoio è rimasto lo stesso. In caso negativo, al completamento della preparazione del prodotto questo sarà messo in magazzino e al cuoco verrà presentato il nuovo vassoio;
+* Nel caso in cui il vassoio attuale si svuoti mentre un cuoco prepara un prodotto, e non siano presenti altri vassoi da preparare, il prodotto del cuoco verrà messo in magazzino e il cuoco verrà messo in attesa di un altro cuoco;
+* I cuochi possono preparare solo i prodotti presenti nel vassoio;
 * In altre parole, un cuoco non può decidere in maniera autonoma di preparare un
-prodotto che non è presente tra quelli richiesti nel vassoio 'attuale'.
-* Se durante la scelta del prodotto da preparare altri cuochi completano altri
-prodotti, comportando di conseguenza un cambio dello stato del vassoio, al cuoco verrà chiesto di riconfermare la propria selezione.
-In base all'esito dell'operazione il server invierà una array di risposta al client del cuoco.
-L'array conterrà due oggetti:
-* Un oggetto di tipo Prodotto (che sarà il prodotto che dovrà preparare il cuoco)
-* Una stringa che avviserà il cuoco nel caso il prodotto sia già presente in
-magazzino.
+prodotto che non è presente tra quelli richiesti nel vassoio 'attuale';
+* Se durante la scelta del prodotto da preparare altri cuochi completano altri prodotti, comportando di conseguenza un cambio dello stato del vassoio, al cuoco verrà chiesto di riconfermare la propria selezione.
+
+In base all'esito dell'operazione il server invierà una array di risposta al client del cuoco. L'array conterrà due oggetti:
+  * Un oggetto di tipo Prodotto (che sarà il prodotto che dovrà preparare il cuoco);
+  * Una stringa che avviserà il cuoco nel caso il prodotto sia già presente in magazzino.
+
 Il motivo per cui viene inviato dal server un oggetto di tipo Prodotto è che questo rappresenta gli 'ingredienti' che il cuoco dovrà usare per preparare il prodotto e re-inviarlo al Server.
 Questa scelta implementativa, che può sembrare un pò forzata, si è basata sul fatto che volevamo far si che server e client si scambiassero un oggetto di tipo Prodotto. La classe Prodotto infatti sarà presente sia nel lato client sia nel lato server, implementerà l'interfaccia Serializable e conterrà lo stesso UID.
 Abbiamo diviso i possibili esiti in 5 casi, che sono singolarmente spiegati fra i commenti nella classe Cucina.java.
