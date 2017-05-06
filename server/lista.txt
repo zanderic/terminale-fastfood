@@ -1,0 +1,12 @@
+1 Hamburger
+2 Cheeseburger
+3 Patatine
+4 Trancio di pizza margherita
+5 Uova e pancetta
+6 Insalata
+7 Coca Cola
+8 Coca Light
+9 Pepsi Cola
+10 Fanta
+11 Sprite
+12 Acqua minerale
